@@ -277,8 +277,10 @@ contract StakingAppTest is Test {
         uint256 etherAmountBefore = address(randomUser_).balance;
         stakingApp.claimRewards();
         uint256 etherAmountAfter = address(randomUser_).balance;
+        uint256 userElapsedPeriod = stakingApp.userToBlockTimestamp(randomUser_);
 
         assertEq(etherAmountAfter - etherAmountBefore, rewardPerPeriod_);
+        assertEq(userElapsedPeriod, block.timestamp);
         vm.stopPrank(); 
     }
 
